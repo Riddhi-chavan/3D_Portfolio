@@ -5,21 +5,25 @@ const Counter = ({ end, suffix }) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        let start = 0;
+        let startTime = null;
         const duration = 2000;
-        const step = (end / duration) * 16;
+        let animationFrameId;
 
-        const timer = setInterval(() => {
-            start += step;
-            if (start >= end) {
-                setCount(end);
-                clearInterval(timer);
+        const animate = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+
+            if (progress < duration) {
+                setCount(Math.floor((progress / duration) * end));
+                animationFrameId = requestAnimationFrame(animate);
             } else {
-                setCount(Math.floor(start));
+                setCount(end);
             }
-        }, 16);
+        };
 
-        return () => clearInterval(timer);
+        animationFrameId = requestAnimationFrame(animate);
+
+        return () => cancelAnimationFrame(animationFrameId);
     }, [end]);
 
     return <span>{count}{suffix}</span>;

@@ -14,33 +14,33 @@ export function Room(props) {
   const screensRef = useRef();
   const matcapTexture = useTexture("/images/textures/mat1.png");
 
-  const curtainMaterial = new THREE.MeshPhongMaterial({
+  const curtainMaterial = React.useMemo(() => new THREE.MeshPhongMaterial({
     color: "#d90429",
-  });
+  }), []);
 
-  const bodyMaterial = new THREE.MeshPhongMaterial({
+  const bodyMaterial = React.useMemo(() => new THREE.MeshPhongMaterial({
     map: matcapTexture,
-  });
+  }), [matcapTexture]);
 
-  const tableMaterial = new THREE.MeshPhongMaterial({
+  const tableMaterial = React.useMemo(() => new THREE.MeshPhongMaterial({
     color: "#582f0e",
-  });
+  }), []);
 
-  const radiatorMaterial = new THREE.MeshPhongMaterial({
+  const radiatorMaterial = React.useMemo(() => new THREE.MeshPhongMaterial({
     color: "#fff",
-  });
+  }), []);
 
-  const compMaterial = new THREE.MeshStandardMaterial({
+  const compMaterial = React.useMemo(() => new THREE.MeshStandardMaterial({
     color: "#fff",
-  });
+  }), []);
 
-  const pillowMaterial = new THREE.MeshPhongMaterial({
+  const pillowMaterial = React.useMemo(() => new THREE.MeshPhongMaterial({
     color: "#8338ec",
-  });
+  }), []);
 
-  const chairMaterial = new THREE.MeshPhongMaterial({
+  const chairMaterial = React.useMemo(() => new THREE.MeshPhongMaterial({
     color: "#000",
-  });
+  }), []);
 
   return (
     <group {...props} dispose={null}>
